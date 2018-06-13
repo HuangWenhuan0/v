@@ -1,0 +1,157 @@
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+ext.deps = [:]
+
+def versions = [:]
+versions.androidPlugin          = '3.0.1'
+versions.androidRuntime         = '4.1.1.4'
+versions.kotlin                 = '1.2.41'
+versions.support                = '26.1.0'
+versions.constraint             = '1.1.0'
+versions.archCore               = "1.1.1"
+versions.lifecycle              = "1.1.1"
+versions.rxjava2                = "2.1.9"
+versions.rxandroid              = "2.0.2"
+versions.retrofit               = "2.4.0"
+versions.timber                 = "4.5.1"
+versions.recyclerviewAnimators  = '2.2.7'
+versions.easypermissions        = '1.0.0'
+versions.wheelPicker            = '1.1.2'
+versions.luban                  = '1.1.4'
+versions.rxnetwork              = '0.12.3'
+versions.rxbinding              = '2.1.0'
+versions.junit                  = '4.12'
+versions.truth                  = '0.40'
+versions.robolectric            = '3.8'
+versions.mockito                = '2.18.0'
+
+/* --- nio library --- */
+versions.gallery    = '0.3.5'
+versions.commonBase = '0.3.5'
+versions.account    = '0.8.2'
+versions.network    = '0.1.2-SNAPSHOT'
+versions.commonPe   = '0.0.5.6-SNAPSHOT'
+versions.deepLink   = '0.1.6-SNAPSHOT'
+versions.storage    = '0.6.0'
+
+/* --- nio internal library --- */
+versions.model      = '1.0.0-SNAPSHOT'
+versions.base       = '0.4.0-SNAPSHOT'
+versions.kcube      = '0.4.0-SNAPSHOT'
+versions.share      = '0.4.0-SNAPSHOT'
+versions.appInfo    = '0.4.0-SNAPSHOT'
+versions.tinypinyin = '2.0.3'
+versions.proguard   = '1.0.0-SNAPSHOT'
+ext.versions = versions
+
+def buildVersions = [:]
+buildVersions.minSdk                = 19
+buildVersions.targetSdk             = 26
+buildVersions.compileSdk            = 27
+buildVersions.buildTools            = "27.0.3"
+buildVersions.sourceCompatibility   = JavaVersion.VERSION_1_8
+buildVersions.targetCompatibility   = JavaVersion.VERSION_1_8
+ext.buildVersions = buildVersions
+
+//////////////
+def deps = [:]
+//////////////
+
+deps.timber                 = "com.jakewharton.timber:timber:$versions.timber"
+deps.recyclerviewAnimators  = "jp.wasabeef:recyclerview-animators:$versions.recyclerviewAnimators"
+deps.easypermissions        = "pub.devrel:easypermissions:$versions.easypermissions"
+deps.wheelPicker            = "cn.aigestudio.wheelpicker:WheelPicker:$versions.wheelPicker"
+deps.luban                  = "top.zibin:Luban:$versions.luban"
+deps.rxnetwork              = "com.github.pwittchen:reactivenetwork-rx2:$versions.rxnetwork"
+deps.rxjava2                = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.rxandroid              = "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+deps.junit                  = "junit:junit:$versions.junit"
+deps.truth                  = "com.google.truth:truth:$versions.truth"
+deps.robolectric            = "org.robolectric:robolectric:$versions.robolectric"
+deps.mockito                = "org.mockito:mockito-core:$versions.mockito"
+
+def support = [:]
+support.annotations     = "com.android.support:support-annotations:$versions.support"
+support.appCompat       = "com.android.support:appcompat-v7:$versions.support"
+support.recyclerview    = "com.android.support:recyclerview-v7:$versions.support"
+support.cardview        = "com.android.support:cardview-v7:$versions.support"
+support.design          = "com.android.support:design:$versions.support"
+support.v4              = "com.android.support:support-v4:$versions.support"
+support.exifinterface   = "com.android.support:exifinterface:$versions.support"
+support.coreUtils       = "com.android.support:support-core-utils:$versions.support"
+support.constraint      = "com.android.support.constraint:constraint-layout:$versions.constraint"
+deps.support = support
+
+def lifecycle = [:]
+lifecycle.runtime    = "android.arch.lifecycle:runtime:$versions.lifecycle"
+lifecycle.extensions = "android.arch.lifecycle:extensions:$versions.lifecycle"
+lifecycle.java8      = "android.arch.lifecycle:common-java8:$versions.lifecycle"
+lifecycle.compiler   = "android.arch.lifecycle:compiler:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+def archCore = [:]
+archCore.testing = "android.arch.core:core-testing:$versions.archCore"
+deps.archCore = archCore
+
+def android = [:]
+android.plugin  = "com.android.tools.build:gradle:$versions.androidPlugin"
+android.runtime = "com.google.android:android:$versions.androidRuntime"
+deps.android= android
+
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+deps.kotlin = kotlin
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson    = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.adapter = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+retrofit.mock    = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
+deps.retrofit = retrofit
+
+def nio = [:]
+nio.network     = "cn.com.weilaihui3:network:$versions.network"
+nio.account     = "cn.com.weilaihui3:nio-account:$versions.account"
+nio.commonPe    = "cn.com.weilaihui3:pe-common:$versions.commonPe"
+nio.gallery     = "cn.com.weilaihui3:common-gallery:$versions.gallery"
+nio.commonBase  = "cn.com.weilaihui3:common-base:$versions.commonBase"
+nio.deepLink    = "cn.com.weilaihui3:deep-link:$versions.deepLink"
+nio.storage     = "cn.com.weilaihui3:android-secure-storage:$versions.storage"
+deps.nio = nio
+
+/**
+ * 从主工程剥离出来供编译和运行sample使用
+ */
+def nioInternal = [:]
+nioInternal.model       = "nio.app.internal:nio-base-model:$versions.model"
+nioInternal.base        = "nio.app.internal:nio-business-base:$versions.base"
+nioInternal.kcube       = "nio.app.internal:nio-kcube:$versions.kcube"
+nioInternal.share       = "nio.app.internal:nio-share-auth:$versions.share"
+nioInternal.appInfo     = "nio.app.internal:nio-app-info:$versions.appInfo"
+nioInternal.pinyin      = "com.github.promeg:tinypinyin:$versions.tinypinyin"
+nioInternal.proguard    = "nio.app.internal:proguard:$versions.proguard"
+deps.nioInternal = nioInternal
+
+def rxbinding = [:]
+rxbinding.core = "com.jakewharton.rxbinding2:rxbinding:$versions.rxbinding"
+deps.rxbinding = rxbinding
+
+////////////////
+ext.deps = deps
+////////////////
+
+def addRepos(RepositoryHandler handler) {
+    handler.mavenLocal()
+    handler.google()
+    handler.mavenCentral()
+    handler.jcenter()
+    handler.maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    handler.maven { url new File(rootProject.projectDir, 'build/repo') }
+    handler.maven { url 'http://nexus.nevint.com/repository/maven-releases/' }
+    handler.maven { url 'http://nexus.nevint.com/repository/maven-snapshots/' }
+}
+
+ext.addRepos = this.&addRepos
